@@ -53,13 +53,13 @@
 ------------------------------------
   - Service Manager                                           [ systemd ]
   - Checking UEFI boot                                        [ ENABLED ]
-  - Checking Secure Boot                                      [ DISABLED ]
+  - Checking Secure Boot                                      [ ENABLED ]
   - Checking presence GRUB2                                   [ FOUND ]
     - Checking for password protection                        [ OK ]
   - Check running services (systemctl)                        [ DONE ]
         Result: found 43 running services
   - Check enabled services at boot (systemctl)                [ DONE ]
-        Result: found 60 enabled services
+        Result: found 61 enabled services
   - Check startup files (permissions)                         [ OK ]
   - Running 'systemd-analyze security'
       Unit name (exposure value) and predicate
@@ -69,6 +69,7 @@
     - accounts-daemon.service (value=5.5)                     [ MEDIUM ]
     - alsa-state.service (value=9.6)                          [ UNSAFE ]
     - anacron.service (value=9.6)                             [ UNSAFE ]
+    - auditd.service (value=8.9)                              [ EXPOSED ]
     - avahi-daemon.service (value=9.6)                        [ UNSAFE ]
     - blueman-mechanism.service (value=9.6)                   [ UNSAFE ]
     - bluetooth.service (value=6.0)                           [ MEDIUM ]
@@ -84,7 +85,6 @@
     - emergency.service (value=9.5)                           [ UNSAFE ]
     - fail2ban.service (value=9.6)                            [ UNSAFE ]
     - flatpak-system-helper.service (value=9.6)               [ UNSAFE ]
-    - fwupd.service (value=7.7)                               [ EXPOSED ]
     - getty@tty1.service (value=9.6)                          [ UNSAFE ]
     - getty@tty7.service (value=9.6)                          [ UNSAFE ]
     - gnome-remote-desktop.service (value=9.2)                [ UNSAFE ]
@@ -143,7 +143,7 @@
   - Checking kernel version and release                       [ DONE ]
   - Checking kernel type                                      [ DONE ]
   - Checking loaded kernel modules                            [ DONE ]
-      Found 243 active modules
+      Found 236 active modules
   - Checking Linux kernel configuration file                  [ FOUND ]
   - Checking default I/O kernel scheduler                     [ NOT FOUND ]
   - Checking for available kernel update                      [ OK ]
@@ -233,7 +233,7 @@
   - Mount options of /dev                                     [ PARTIALLY HARDENED ]
   - Mount options of /dev/shm                                 [ PARTIALLY HARDENED ]
   - Mount options of /run                                     [ HARDENED ]
-  - Total without nodev:18 noexec:25 nosuid:16 ro or noexec (W^X): 25 of total 41
+  - Total without nodev:16 noexec:21 nosuid:14 ro or noexec (W^X): 21 of total 37
   - Checking Locate database                                  [ FOUND ]
   - Disable kernel support of some filesystems
 
@@ -249,7 +249,7 @@
       - Rule for devices inserted after daemon starts         [ apply-policy ]
       - Rule for devices not in RuleFile                      [ block ]
     - RuleFile                                                [ FOUND ]
-      - Controllers & Devices allow                           [ 8 ]
+      - Controllers & Devices allow                           [ 6 ]
       - Controllers & Devices block                           [ 0 ]
       - Controllers & Devices reject                          [ 0 ]
 
@@ -276,7 +276,7 @@
     - Searching dpkg package manager                          [ FOUND ]
       - Querying package manager
 
-  [WARNING]: Test PKGS-7345 had a long execution: 14.129811 seconds
+  [WARNING]: Test PKGS-7345 had a long execution: 14.526431 seconds
 
     - Query unpurged packages                                 [ FOUND ]
   - Checking security repository in sources.list.d directory  [ OK ]
@@ -294,10 +294,10 @@
       IPv6 only                                               [ NO ]
   - Checking configured nameservers
     - Testing nameservers
-        Nameserver: 1.1.1.1                                   [ NO RESPONSE ]
-        Nameserver: 9.9.9.9                                   [ OK ]
-        Nameserver: 8.8.8.8                                   [ NO RESPONSE ]
+        Nameserver: 1.1.1.1                                   [ OK ]
         Nameserver: 8.8.4.4                                   [ OK ]
+        Nameserver: 8.8.8.8                                   [ OK ]
+        Nameserver: 9.9.9.9                                   [ OK ]
     - Minimal of 2 responsive nameservers                     [ OK ]
     - DNSSEC supported (systemd-resolved)                     [ UNKNOWN ]
   - Checking default gateway                                  [ DONE ]
@@ -332,8 +332,7 @@
 [+] Software: webserver
 ------------------------------------
   - Checking Apache                                           [ NOT FOUND ]
-  - Checking nginx                                            [ FOUND ]
-  - Searching nginx configuration file                        [ NOT FOUND ]
+  - Checking nginx                                            [ NOT FOUND ]
 
 [+] SSH Support
 ------------------------------------
@@ -427,27 +426,28 @@
 ------------------------------------
   - Checking accounting information                           [ NOT FOUND ]
   - Checking sysstat accounting data                          [ ENABLED ]
-  - Checking auditd                                           [ NOT FOUND ]
+  - Checking auditd                                           [ ENABLED ]
+    - Checking audit rules                                    [ SUGGESTION ]
+    - Checking audit configuration file                       [ OK ]
+    - Checking auditd log file                                [ FOUND ]
 
 [+] Time and Synchronization
 ------------------------------------
   - NTP daemon found: systemd (timesyncd)                     [ FOUND ]
   - Checking for a running NTP daemon or client               [ OK ]
-  - Last time synchronization                                 [ 2020s ]
+  - Last time synchronization                                 [ 65s ]
 
 [+] Cryptography
 ------------------------------------
   - Checking for expired SSL certificates [0/152]             [ NONE ]
 
-  [WARNING]: Test CRYP-7902 had a long execution: 42.219732 seconds
+  [WARNING]: Test CRYP-7902 had a long execution: 54.886878 seconds
 
   - Found 1 LUKS encrypted block devices.                     [ OK ]
   - Found 0 encrypted and 1 unencrypted swap devices in use.  [ OK ]
   - Kernel entropy is sufficient                              [ YES ]
   - HW RNG & rngd                                             [ NO ]
-  - SW prng       
-        # continue without backup
-                                                    [ NO ]
+  - SW prng                                                   [ NO ]
   MOR-bit set                                                 [ YES ]
 
 [+] Virtualization
@@ -459,16 +459,16 @@
       - Docker daemon                                         [ RUNNING ]
         - Docker info output (warnings)                       [ NONE ]
       - Containers
-        - Total containers                                    [ 8 ]
-          - Running containers                                [ 6 ]
-        - Unused containers                                   [ 2 ]
+        - Total containers                                    [ 9 ]
+          - Running containers                                [ 5 ]
+        - Unused containers                                   [ 4 ]
     - File permissions                                        [ OK ]
 
 [+] Security frameworks
 ------------------------------------
   - Checking presence AppArmor                                [ FOUND ]
     - Checking AppArmor status                                [ ENABLED ]
-        Found 154 unconfined processes
+        Found 140 unconfined processes
   - Checking presence SELinux                                 [ NOT FOUND ]
   - Checking presence TOMOYO Linux                            [ NOT FOUND ]
   - Checking presence grsecurity                              [ NOT FOUND ]
@@ -490,7 +490,7 @@
   - Checking automation tooling
   - Automation tooling                                        [ NOT FOUND ]
   - Checking presence of Fail2ban                             [ FOUND ]
-2025-12-22 22:13:51,648 fail2ban.configreader   [646088]: WARNING 'allowipv6' not defined in 'Definition'. Using default one: 'auto'
+2025-12-28 17:19:07,905 fail2ban.configreader   [53882]: WARNING 'allowipv6' not defined in 'Definition'. Using default one: 'auto'
     - Checking Fail2ban jails                                 [ ENABLED ]
   - Checking for IDS/IPS tooling                              [ FOUND ]
 
@@ -587,15 +587,9 @@
 
   -[ Lynis 3.1.6 Results ]-
 
-  Warnings (2):
-  ----------------------------
-  ! Nameserver 1.1.1.1 does not respond [NETW-2704] 
-      https://cisofy.com/lynis/controls/NETW-2704/
+  Great, no warnings
 
-  ! Nameserver 8.8.8.8 does not respond [NETW-2704] 
-      https://cisofy.com/lynis/controls/NETW-2704/
-
-  Suggestions (31):
+  Suggestions (29):
   ----------------------------
   * Consider hardening system services [BOOT-5264] 
     - Details  : Run '/usr/bin/systemd-analyze security SERVICE' for each service
@@ -643,7 +637,7 @@
     - Related resources
       * Website: https://cisofy.com/lynis/controls/NAME-4028/
 
-  * Purge old/removed packages (37 found) with aptitude purge or dpkg --purge command. This will cleanup old configuration files, cron jobs and startup scripts. [PKGS-7346] 
+  * Purge old/removed packages (33 found) with aptitude purge or dpkg --purge command. This will cleanup old configuration files, cron jobs and startup scripts. [PKGS-7346] 
     - Related resources
       * Website: https://cisofy.com/lynis/controls/PKGS-7346/
 
@@ -658,14 +652,6 @@
   * Consider using a tool to automatically apply upgrades [PKGS-7420] 
     - Related resources
       * Website: https://cisofy.com/lynis/controls/PKGS-7420/
-
-  * Check connection to this nameserver and make sure no outbound DNS queries are blocked (port 53 UDP and TCP). [NETW-2704] 
-    - Related resources
-      * Website: https://cisofy.com/lynis/controls/NETW-2704/
-
-  * Check connection to this nameserver and make sure no outbound DNS queries are blocked (port 53 UDP and TCP). [NETW-2704] 
-    - Related resources
-      * Website: https://cisofy.com/lynis/controls/NETW-2704/
 
   * Determine if protocol 'dccp' is really needed on this system [NETW-3200] 
     - Related resources
@@ -709,11 +695,9 @@
     - Related resources
       * Website: https://cisofy.com/lynis/controls/ACCT-9622/
 
-  * Enable auditd to collect audit information [ACCT-9628] 
+  * Audit daemon is enabled with an empty ruleset. Disable the daemon or define rules [ACCT-9630] 
     - Related resources
-      * Article: Linux audit framework 101: basic rules for configuration: https://linux-audit.com/linux-audit-framework/linux-audit-framework-101-basic-rules-for-configuration/
-      * Article: Monitoring Linux file access, changes and data modifications: https://linux-audit.com/monitoring-linux-file-access-changes-and-modifications/
-      * Website: https://cisofy.com/lynis/controls/ACCT-9628/
+      * Website: https://cisofy.com/lynis/controls/ACCT-9630/
 
   * Determine if automation tools are present for system management [TOOL-5002] 
     - Related resources
@@ -758,7 +742,7 @@
 
   Details:
   Hardening index : 80 [################    ]
-  Tests performed : 271
+  Tests performed : 272
   Plugins enabled : 0
 
   Software components:
