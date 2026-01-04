@@ -57,7 +57,7 @@
   - Checking presence GRUB2                                   [ FOUND ]
     - Checking for password protection                        [ OK ]
   - Check running services (systemctl)                        [ DONE ]
-        Result: found 43 running services
+        Result: found 42 running services
   - Check enabled services at boot (systemctl)                [ DONE ]
         Result: found 61 enabled services
   - Check startup files (permissions)                         [ OK ]
@@ -84,7 +84,7 @@
     - docker.service (value=9.6)                              [ UNSAFE ]
     - emergency.service (value=9.5)                           [ UNSAFE ]
     - fail2ban.service (value=9.6)                            [ UNSAFE ]
-    - flatpak-system-helper.service (value=9.6)               [ UNSAFE ]
+    - fwupd.service (value=7.7)                               [ EXPOSED ]
     - getty@tty1.service (value=9.6)                          [ UNSAFE ]
     - getty@tty7.service (value=9.6)                          [ UNSAFE ]
     - gnome-remote-desktop.service (value=9.2)                [ UNSAFE ]
@@ -95,7 +95,6 @@
     - mintsystem.service (value=9.6)                          [ UNSAFE ]
     - networkd-dispatcher.service (value=9.6)                 [ UNSAFE ]
     - nvidia-persistenced.service (value=9.6)                 [ UNSAFE ]
-    - packagekit.service (value=9.6)                          [ UNSAFE ]
     - plymouth-halt.service (value=9.5)                       [ UNSAFE ]
     - plymouth-poweroff.service (value=9.5)                   [ UNSAFE ]
     - plymouth-reboot.service (value=9.5)                     [ UNSAFE ]
@@ -143,15 +142,15 @@
   - Checking kernel version and release                       [ DONE ]
   - Checking kernel type                                      [ DONE ]
   - Checking loaded kernel modules                            [ DONE ]
-      Found 236 active modules
+      Found 247 active modules
   - Checking Linux kernel configuration file                  [ FOUND ]
   - Checking default I/O kernel scheduler                     [ NOT FOUND ]
   - Checking for available kernel update                      [ OK ]
   - Checking core dumps configuration
-    - configuration in systemd conf files                     [ DEFAULT ]
+    - configuration in systemd conf files                     [ DISABLED ]
     - configuration in /etc/profile                           [ DEFAULT ]
     - 'hard' configuration in /etc/security/limits.conf       [ DEFAULT ]
-    - 'soft' configuration in /etc/security/limits.conf       [ DEFAULT ]
+    - 'soft' configuration in /etc/security/limits.conf       [ DISABLED ]
     - Checking setuid core dumps configuration                [ PROTECTED ]
   - Check if reboot is needed                                 [ NO ]
 
@@ -233,7 +232,7 @@
   - Mount options of /dev                                     [ PARTIALLY HARDENED ]
   - Mount options of /dev/shm                                 [ PARTIALLY HARDENED ]
   - Mount options of /run                                     [ HARDENED ]
-  - Total without nodev:16 noexec:21 nosuid:14 ro or noexec (W^X): 21 of total 37
+  - Total without nodev:28 noexec:33 nosuid:26 ro or noexec (W^X): 33 of total 49
   - Checking Locate database                                  [ FOUND ]
   - Disable kernel support of some filesystems
 
@@ -249,7 +248,7 @@
       - Rule for devices inserted after daemon starts         [ apply-policy ]
       - Rule for devices not in RuleFile                      [ block ]
     - RuleFile                                                [ FOUND ]
-      - Controllers & Devices allow                           [ 6 ]
+      - Controllers & Devices allow                           [ 10 ]
       - Controllers & Devices block                           [ 0 ]
       - Controllers & Devices reject                          [ 0 ]
 
@@ -276,13 +275,13 @@
     - Searching dpkg package manager                          [ FOUND ]
       - Querying package manager
 
-  [WARNING]: Test PKGS-7345 had a long execution: 14.526431 seconds
+  [WARNING]: Test PKGS-7345 had a long execution: 16.201248 seconds
 
     - Query unpurged packages                                 [ FOUND ]
   - Checking security repository in sources.list.d directory  [ OK ]
   - Checking APT package database                             [ OK ]
   - Checking vulnerable packages (apt-get only)               [ DONE ]
-  - Checking upgradeable packages                             [ SKIPPED ]
+  - Checking upgradeable packages                             [ NONE ]
   - Checking package audit tool                               [ INSTALLED ]
     Found: apt-get
   - Toolkit for automatic upgrades                            [ NOT FOUND ]
@@ -306,13 +305,13 @@
   - Checking waiting connections                              [ OK ]
   - Checking status DHCP client                               [ NOT ACTIVE ]
   - Checking for ARP monitoring software                      [ NOT FOUND ]
-  - Uncommon network protocols                                [ 0 ]
+  - Uncommon network protocols                                [ NOT FOUND ]
 
 [+] Printers and Spools
 ------------------------------------
   - Checking cups daemon                                      [ RUNNING ]
   - Checking CUPS configuration file                          [ OK ]
-    - File permissions                                        [ WARNING ]
+    - File permissions                                        [ OK ]
   - Checking CUPS addresses/sockets                           [ FOUND ]
   - Checking lp daemon                                        [ NOT RUNNING ]
 
@@ -435,13 +434,13 @@
 ------------------------------------
   - NTP daemon found: systemd (timesyncd)                     [ FOUND ]
   - Checking for a running NTP daemon or client               [ OK ]
-  - Last time synchronization                                 [ 65s ]
+  - Last time synchronization                                 [ 136s ]
 
 [+] Cryptography
 ------------------------------------
   - Checking for expired SSL certificates [0/152]             [ NONE ]
 
-  [WARNING]: Test CRYP-7902 had a long execution: 54.886878 seconds
+  [WARNING]: Test CRYP-7902 had a long execution: 65.550661 seconds
 
   - Found 1 LUKS encrypted block devices.                     [ OK ]
   - Found 0 encrypted and 1 unencrypted swap devices in use.  [ OK ]
@@ -459,16 +458,16 @@
       - Docker daemon                                         [ RUNNING ]
         - Docker info output (warnings)                       [ NONE ]
       - Containers
-        - Total containers                                    [ 9 ]
-          - Running containers                                [ 5 ]
-        - Unused containers                                   [ 4 ]
+        - Total containers                                    [ 22 ]
+          - Running containers                                [ 14 ]
+        - Unused containers                                   [ 8 ]
     - File permissions                                        [ OK ]
 
 [+] Security frameworks
 ------------------------------------
   - Checking presence AppArmor                                [ FOUND ]
     - Checking AppArmor status                                [ ENABLED ]
-        Found 140 unconfined processes
+        Found 174 unconfined processes
   - Checking presence SELinux                                 [ NOT FOUND ]
   - Checking presence TOMOYO Linux                            [ NOT FOUND ]
   - Checking presence grsecurity                              [ NOT FOUND ]
@@ -490,7 +489,7 @@
   - Checking automation tooling
   - Automation tooling                                        [ NOT FOUND ]
   - Checking presence of Fail2ban                             [ FOUND ]
-2025-12-28 17:19:07,905 fail2ban.configreader   [53882]: WARNING 'allowipv6' not defined in 'Definition'. Using default one: 'auto'
+2026-01-04 00:36:53,060 fail2ban.configreader   [1807163]: WARNING 'allowipv6' not defined in 'Definition'. Using default one: 'auto'
     - Checking Fail2ban jails                                 [ ENABLED ]
   - Checking for IDS/IPS tooling                              [ FOUND ]
 
@@ -589,18 +588,13 @@
 
   Great, no warnings
 
-  Suggestions (29):
+  Suggestions (22):
   ----------------------------
   * Consider hardening system services [BOOT-5264] 
     - Details  : Run '/usr/bin/systemd-analyze security SERVICE' for each service
     - Related resources
       * Article: Systemd features to secure service files: https://linux-audit.com/systemd/systemd-features-to-secure-units-and-services/
       * Website: https://cisofy.com/lynis/controls/BOOT-5264/
-
-  * If not required, consider explicit disabling of core dump in /etc/security/limits.conf file [KRNL-5820] 
-    - Related resources
-      * Article: Understand and configure core dumps on Linux: https://linux-audit.com/software/understand-and-configure-core-dumps-work-on-linux/
-      * Website: https://cisofy.com/lynis/controls/KRNL-5820/
 
   * Configure password hashing rounds in /etc/login.defs [AUTH-9230] 
     - Related resources
@@ -645,33 +639,9 @@
     - Related resources
       * Website: https://cisofy.com/lynis/controls/PKGS-7370/
 
-  * Install package apt-show-versions for patch management purposes [PKGS-7394] 
-    - Related resources
-      * Website: https://cisofy.com/lynis/controls/PKGS-7394/
-
   * Consider using a tool to automatically apply upgrades [PKGS-7420] 
     - Related resources
       * Website: https://cisofy.com/lynis/controls/PKGS-7420/
-
-  * Determine if protocol 'dccp' is really needed on this system [NETW-3200] 
-    - Related resources
-      * Website: https://cisofy.com/lynis/controls/NETW-3200/
-
-  * Determine if protocol 'sctp' is really needed on this system [NETW-3200] 
-    - Related resources
-      * Website: https://cisofy.com/lynis/controls/NETW-3200/
-
-  * Determine if protocol 'rds' is really needed on this system [NETW-3200] 
-    - Related resources
-      * Website: https://cisofy.com/lynis/controls/NETW-3200/
-
-  * Determine if protocol 'tipc' is really needed on this system [NETW-3200] 
-    - Related resources
-      * Website: https://cisofy.com/lynis/controls/NETW-3200/
-
-  * Access to CUPS configuration could be more strict. [PRNT-2307] 
-    - Related resources
-      * Website: https://cisofy.com/lynis/controls/PRNT-2307/
 
   * Check iptables rules to see which rules are currently not used [FIRE-4513] 
     - Related resources
@@ -741,7 +711,7 @@
   - Vulnerability scan     [V]
 
   Details:
-  Hardening index : 80 [################    ]
+  Hardening index : 81 [################    ]
   Tests performed : 272
   Plugins enabled : 0
 
